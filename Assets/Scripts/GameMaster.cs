@@ -7,6 +7,8 @@ public class GameMaster : MonoBehaviour {
   public float spawn_radius = 20.0f;
   float spawn_delay;
 
+  public UnityEngine.UI.Text score_text;
+
   int player_score = 0;
 
   bool game_over = false;
@@ -48,6 +50,7 @@ public class GameMaster : MonoBehaviour {
 
   public void addToScore(int _points) {
     player_score += 1;
+    score_text.text = player_score.ToString ();
   }
 
   public int playerScore() {
@@ -56,7 +59,7 @@ public class GameMaster : MonoBehaviour {
 
   public void endGame() {
     game_over = true;
-    Debug.Log ("GAME OVER!");
+    score_text.text = "GAME OVER! \nScore: " + player_score.ToString();
   }
 
   public bool gameIsOver() {

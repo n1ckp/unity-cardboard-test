@@ -3,6 +3,7 @@ using System.Collections;
 
 public class ZombieBehaviour : MonoBehaviour {
   GameObject target;
+  GameMaster game_master;
 
   bool dead = false;
   float timeout = 10.0f;
@@ -10,6 +11,7 @@ public class ZombieBehaviour : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
     target = GameObject.Find("Player");
+    game_master = GameObject.Find ("GameMaster").GetComponent<GameMaster>();
 	}
 	
 	// Update is called once per frame
@@ -27,9 +29,10 @@ public class ZombieBehaviour : MonoBehaviour {
 	}
 
   void OnCollisionEnter(Collision coll) {
-    if (dead == false && coll.gameObject.tag == "projectile") {
+    if (!game_master.gameIsOver() && dead == false && coll.gameObject.tag == "projectile") {
       dead = true;
       gameObject.GetComponent<Renderer>().material.color = Color.gray;
+      game_master.addToScore(1);
     }
   }
 }
